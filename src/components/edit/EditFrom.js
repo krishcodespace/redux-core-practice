@@ -21,7 +21,7 @@ const EditFrom = ({handleClose,singledata, isProducts,}) => {
   
 
     
-  console.log('isProducts', isProducts)
+  // console.log('isProducts', isProducts)
     console.log('singledata', singledata)
    
 

@@ -11,15 +11,21 @@ import { useParams } from 'react-router-dom';
 import SingleProduct from './components/SingleProduct';
 import Home from './components/Home';
 import AddProduct from './components/add/AddProduct';
+import Edit from "./components/edit/Edit"
+
+
 
 
 
 function App() {
   const [data, setData] = useState([]);
+  console.log("run: show App component")
+  const { productData} =  useSelector((state)=> state.productReducer);
+console.log('prodcutData', productData)
 
   const dispatch = useDispatch();
-  let {id} = useParams();
-  console.log("id",id);
+
+  
   
 
  
@@ -49,8 +55,9 @@ function App() {
   useEffect(() => {
    
     dispatch(getData());
-
+    
     // dispatch(getSingleProductData(7))
+    console.log("run : first useEffect ")
  
 
   }, [dispatch]);
@@ -62,7 +69,7 @@ function App() {
       <Route path="/" element={<Home />} />
        <Route path='/product' element={<ProductContainer />} />
        <Route exact path="/product/:id" element={<SingleProduct />} />
-       {/* <Route exact path="/product/add" element={<AddProduct />} /> */}
+       <Route exact path="/product/edit/:id" element={<Edit />} />
        
        {/* <Route path={`/product/${id}`} element={<SingleProduct />} /> */}
 

@@ -9,15 +9,18 @@ import {
 } from "../action/actionTypes";
 
 const initialState = {
-  priceRange:null,
+  priceRange: null,
   productData: [],
-  productData2:[],
+  productData2: [],
   singleProduct: [],
-  cartProduct:[],
-  productDataDelete:[],
-  filterDatahold:null,
+  cartProduct: [],
+  productDataDelete: [],
+  filterDatahold: null,
 };
-console.log("🚀 ~ file: index.js:19 ~ initialState.productData:", initialState.productData)
+console.log(
+  "🚀 ~ file: index.js:19 ~ initialState.productData:",
+  initialState.productData
+);
 
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -25,7 +28,7 @@ const productReducer = (state = initialState, action) => {
       return {
         ...state,
         productData: action.payload.data?.products,
-        productData2:action.payload.data?.products,
+        productData2: action.payload.data?.products,
       };
 
     case SINGLE_PRODUCT_DATA:
@@ -35,42 +38,59 @@ const productReducer = (state = initialState, action) => {
       };
 
     case ADD_ITEM:
-   
       return {
         ...state,
         productData: action.payload,
       };
 
     case DELETE_ITEM:
-      const deleteProduct = state.productData.filter((product) => product.id !== action.payload.id);
-      console.log('deleteProduct',action.payload.id)
+      const deleteProduct = state.productData.filter(
+        (product) => product.id !== action.payload.id
+      );
+      console.log("deleteProduct", action.payload.id);
       return {
         ...state,
         productData: deleteProduct,
         productDataDelete: deleteProduct,
+      
       };
 
-      case ADD_CART:
-      const addCartproducts = action.payload
-      console.log('addCartProducts', addCartproducts)
-      return{
+    case ADD_CART:
+      const Id = action.payload;
+      console.log('id,price', Id,)
+      // const addCartproducts = state.productDataDelete.filter();
+      // console.log("addCartProducts", addCartproducts);
+      // return {
+      //   ...state,
+      //   cartProduct: null,
+      // };
+    case SET_PRICE_RANGE:
+      return {
         ...state,
-        cartProduct: addCartproducts,
+        priceRange: [action.payload.min, action.payload.max],
       };
-      case SET_PRICE_RANGE:
-        return{
-         ...state,
-        priceRange:[ action.payload.min, action.payload.max],
-        }
-      case SET_FILTER_DATA:
-        const [Min,Max]=action.payload
-        const filteredData = state.productDataDelete?.filter((item) => Min <= item?.price && item?.price <= Max)
-        return {
-          ...state,
-          productData:filteredData
-        }
-     
-  
+
+    case SET_FILTER_DATA:
+      const [Min, Max] = action.payload;
+
+      const filteredData =
+        state.productDataDelete.length > 0
+          ? state.productDataDelete?.filter(
+              (item) => Min <= item?.price && item?.price <= Max
+            )
+          : state.productData2?.filter(
+              (item) => Min <= item?.price && item?.price <= Max
+            );
+      // const filteredData =  state.productDataDelete?.filter((item) => Min <= item?.price && item?.price <= Max)
+      console.log(
+        "🚀 ~ file: index.js:68 ~ productReducer ~ filteredData:",
+        filteredData
+      );
+
+      return {
+        ...state,
+        productData: filteredData,
+      };
 
     default:
       return state;

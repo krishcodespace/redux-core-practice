@@ -33,11 +33,11 @@ export const getSingleProductData = (productID) => {
    return async (dispatch) =>{
     try {   
         const response  = await axios.get(`https://dummyjson.com/products/${productID}`);
-        const singleProductData = response;
+        const singleitem = response;
 
         dispatch({
             type: SINGLE_PRODUCT_DATA,
-            payload: singleProductData ,
+            payload: singleitem ,
           });
 
     } catch (error) {
@@ -78,6 +78,8 @@ export const deleteProduct = (id) => {
   };
 
   export const addToCart = (id) => {
+    console.log('actioncart', id);
+
     return{
         type:ADD_CART,
         payload:{id},
@@ -99,3 +101,4 @@ export const deleteProduct = (id) => {
         payload: data
     }
   }
+

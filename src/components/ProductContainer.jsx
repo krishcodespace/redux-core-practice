@@ -12,12 +12,15 @@ import { setFilteredData, setPriceRange } from "../redux/action/actionTypes";
 
 
  const  ProductContainer = () => {
+  console.log('run: show component container')
+
    const [isProducts, setProducts] = useState(null)
    const dispatch = useDispatch();
    const navigate = useNavigate();
    
    const {productData, singleProduct,productData2,priceRange } = useSelector((state) => state?.productReducer); // Assuming you have a productData reducer in your state
    console.log("🚀 ~ file: ProductContainer.jsx:21 ~ ProductContainer ~ productData:", productData)
+
 
     function onChange(value) {
       console.log('onChange: ', value);
@@ -29,7 +32,7 @@ import { setFilteredData, setPriceRange } from "../redux/action/actionTypes";
       // setProducts(datas)
   
   
-    console.log('isProducts1', isProducts)
+    // console.log('isProducts1', isProducts)
       // const filteredData = isProducts?.filter((item) => value[0] <= item?.price && item?.price <= value[1])
       dispatch(setFilteredData(value));
     }
@@ -180,17 +183,18 @@ import { setFilteredData, setPriceRange } from "../redux/action/actionTypes";
     }
    
       // we delete product locally 
-      const handleDelete = (id) => { 
-        const updatedProducts = isProducts.filter((product) => product.id !== id);
-        setProducts(updatedProducts)
-      };
+      // const handleDelete = (id) => { 
+      //   const updatedProducts = isProducts.filter((product) => product.id !== id);
+      //   setProducts(updatedProducts)
+      // };
        
 
 
-    // useEffect(()=>{
-    //   setProducts(datas)
-    // },[datas])
-    
+    useEffect(()=>{
+      // setProducts(datas)
+      console.log('run: productContainer useEefect')
+
+    },[])
     
       
     
@@ -203,7 +207,7 @@ import { setFilteredData, setPriceRange } from "../redux/action/actionTypes";
           <Slider style={{ display: "none" }} defaultValue={30} onChange={onChange} onChangeComplete={onAfterChange} />
           <Slider range step={10} defaultValue={[20,1000]} onChange={onChange} onChangeComplete={onAfterChange}
             min={0}
-            max={8990}
+            max={2000}
       
 
 
@@ -214,10 +218,10 @@ import { setFilteredData, setPriceRange } from "../redux/action/actionTypes";
           <div className="parent">
             {
               productData?.map((product)=> {
-                console.log("map",product.price)
+                {/* console.log("map",product.price) */}
                 return(
       
-                  <Card isProducts={isProducts} handleDelete={handleDelete}  id={product?.id} title={product?.title} description = {product?.description} price={product?.price} rating={product?.rating} image={product?.images?.[0]}  />
+                  <Card isProducts={isProducts}   id={product?.id} title={product?.title} description = {product?.description} price={product?.price} rating={product?.rating} image={product?.images?.[0]}  />
                 ) 
               })
       
